@@ -1,3 +1,5 @@
+import { CHANGE_TO_ADD_MODE, CHANGE_TO_EDIT_MODE, SEARCHING } from "../Constant/constant"
+
 const initial_state = {
     isEditingMode: false,
     editId: null,
@@ -10,17 +12,17 @@ const initial_state = {
 
 const editReducer = (state = initial_state, action) => {
     switch(action.type) {
-        case 'change_to_edit_mode': {
+        case CHANGE_TO_EDIT_MODE : {
             return {
                 ...state, isEditingMode: true, editId: action.payload
             }
         }
-        case 'change_to_add_mode': {
+        case CHANGE_TO_ADD_MODE : {
             return {
                 ...state, isEditingMode: false, editId: null
             }
         }
-        case 'searching' : {
+        case SEARCHING : {
             return {
                 ...state,  searchText: action.payload
             }
