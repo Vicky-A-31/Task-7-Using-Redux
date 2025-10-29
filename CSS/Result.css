@@ -1,0 +1,69 @@
+.result-container {
+    background-color: var(--color4);
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.result-container > h3 {
+    text-align: center;
+    font-size: 24px;
+}
+
+.result-container > p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.result-container > input {
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.result-container>input:focus {
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.records-container {
+    margin: 20px 0;
+}
+
+.records-container .record {
+    margin: 10px 0;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.record  p {
+    margin: 5px 0;
+}
+
+.record #editIcon, .record #deleteIcon {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    display: block;
+}
+
+.record #editIcon {
+    color: rgb(111, 111, 228);
+}
+
+.record #deleteIcon {
+    color: rgb(252, 131, 110);
+}
+
+
+
+
