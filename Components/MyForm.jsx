@@ -1,23 +1,31 @@
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
+import '../CSS/Form.css'
+import Input from "./Input";
+
 
 function MyForm(props) {
-  const { handleSubmit, isEditingMode, saveBtn, addBtn, editTitle, addTitle } = props;
+  const { handleSubmit, pristine, invalid, isEditingMode, saveBtn, addBtn, editTitle, addTitle } = props;
+
+  console.log("initial values: ", props.initialValues)
+  console.log(props)
+
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <h2>{!isEditingMode ? addTitle : editTitle}</h2>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} noValidate>
+        <h3>{!isEditingMode ? addTitle : editTitle}</h3>
 
         <div>
           <label htmlFor="name">Name</label>
           <Field
             name="name"
             type="text"
-            component="input"
+            component={Input}
             placeholder="enter name"
             id="name"
-            required
+            label='Name'
           />
         </div>
 
@@ -29,7 +37,6 @@ function MyForm(props) {
             component="input"
             placeholder="enter email"
             id="email"
-            required
           />
         </div>
 
@@ -42,23 +49,20 @@ function MyForm(props) {
             component="input"
             placeholder="enter password"
             id="password"
-            required
           />
         </div>
 
-  <button type="submit">{!isEditingMode ? addBtn : saveBtn}</button>
+        <button type="submit" disabled={pristine || invalid} >{!isEditingMode ? addBtn : saveBtn}</button>
       </form>
+      </div>
     </>
   );
 }
 
 
 const mapStateToProps = (state) => {
-  // Provide initialValues for redux-form when in edit mode.
-  // This avoids imperative dispatches to populate the form fields from other components
-  // and leverages redux-form's enableReinitialize to update the form when initialValues change.
   const editId = state.edit.editId;
-  const userToEdit = editId != null ? state.users.find((u) => u.id === editId) : undefined;
+  const userToEdit = editId != null ? state.users.find(user => user.id === editId) : undefined;
 
   return {
     isEditingMode: state.edit.isEditingMode,
@@ -66,14 +70,31 @@ const mapStateToProps = (state) => {
     addBtn: state.edit.addBtn,
     editTitle: state.edit.editTitle,
     addTitle: state.edit.addTitle,
-    initialValues: userToEdit || {} // redux-form will use this to populate fields; default to {} when not editing
-  };
+    initialValues: userToEdit || {}
+  }
 }
 
+
+function validate(values) {
+  console.log("values ",values)
+  let errors = {}
+  if(!values.name) {
+    errors.name = 'name is required'
+  }
+  else if(!values.email) {
+    errors.email = 'email is required'
+  }
+  else if(!values.password) {
+    errors.password = 'password is required'
+  }
+
+  return errors
+}
 
 const form = reduxForm({
   form: "myForm",
   enableReinitialize: true,
+  validate, // i wrote this function, i mean custom function 
 })(MyForm);
 
 export default connect(mapStateToProps)(form)
